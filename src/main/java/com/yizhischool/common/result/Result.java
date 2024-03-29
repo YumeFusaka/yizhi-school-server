@@ -1,27 +1,38 @@
 package com.yizhischool.common.result;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
+/**
+ * 后端统一返回结果
+ * @param <T>
+ */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Result {
-    private Integer code;//响应码，1 代表成功; 0 代表失败
-    private String msg;  //响应信息 描述字符串
-    private Object data; //返回的数据
+public class Result<T> implements Serializable {
 
-    //增删改 成功响应
-    public static Result success(){
-        return new Result(200,"success",null);
+    private Integer code; //编码：1成功，0和其它数字为失败
+    private String msg; //错误信息
+    private T data; //数据
+
+    public static <T> Result<T> success() {
+        Result<T> result = new Result<T>();
+        result.code = 200;
+        return result;
     }
-    //查询 成功响应
-    public static Result success(Object data){
-        return new Result(200,"success",data);
+
+    public static <T> Result<T> success(T object) {
+        Result<T> result = new Result<T>();
+        result.data = object;
+        result.code = 200;
+        return result;
     }
-    //失败响应
-    public static Result error(String msg){
-        return new Result(0,msg,null);
+
+    public static <T> Result<T> error(String msg) {
+        Result result = new Result();
+        result.msg = msg;
+        result.code = 500;
+        return result;
     }
+
 }

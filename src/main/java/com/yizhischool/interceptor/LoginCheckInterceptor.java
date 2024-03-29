@@ -1,11 +1,13 @@
 package com.yizhischool.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yizhischool.common.properties.JwtProperties;
 import com.yizhischool.common.result.Result;
 import com.yizhischool.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,6 +16,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component //当前拦截器对象由Spring创建和管理
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private JwtProperties jwtProperties;
+
     //前置方式
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -43,7 +49,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         //5.解析token，如果解析失败，返回错误结果（未登录）
         try {
-            JwtUtils.parseJWT(token);
+            JwtUtils.parseToken(jwtProperties.getSecretKey(),token);
         } catch (Exception e) {
             log.info("令牌解析失败!");
 
