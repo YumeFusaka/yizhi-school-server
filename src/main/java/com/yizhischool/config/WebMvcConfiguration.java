@@ -25,7 +25,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport{
         log.info("开始注册自定义拦截器...");
         registry.addInterceptor(loginCheckInterceptor)
                 .addPathPatterns("/student/**")
-                .excludePathPatterns("/student/login");
+                .excludePathPatterns("/student/login")
+                .excludePathPatterns("/student/hello");
     }
 
 
@@ -39,13 +40,4 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport{
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // 对所有路径生效
-                .allowedOrigins("*") //允许所有源地址
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许的请求方法
-                .allowedHeaders("*"); // 允许的请求头
-    }
 }
