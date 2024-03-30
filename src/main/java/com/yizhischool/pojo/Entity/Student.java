@@ -56,4 +56,7 @@ public class Student {
 
     @TableField("belong")
     String belong;
+
+    @TableField("phone")
+    String phone;
 }

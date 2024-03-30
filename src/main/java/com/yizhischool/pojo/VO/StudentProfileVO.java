@@ -1,17 +1,11 @@
 package com.yizhischool.pojo.VO;
 
-
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class StudentPersonalVO {
-
-    String account;
-
-    String password;
-
+public class StudentProfileVO {
     String name;
 
     String student_id;
@@ -36,6 +30,5 @@ public class StudentPersonalVO {
 
     String major;
 
-    String token;
-
+    String phone;
 }

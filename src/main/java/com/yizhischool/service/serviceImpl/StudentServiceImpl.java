@@ -21,8 +21,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         QueryWrapper<Student> wrapper = new QueryWrapper<>();
         wrapper.eq("account",studentLoginDTO.getAccount())
                 .eq("password", studentLoginDTO.getPassword());
-        Student student=studentMapper.selectOne(wrapper);
-        BaseContext.setCurrentId(student.getId());
-        return student;
+        return studentMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public Student profile() {
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.eq("student_id",BaseContext.getCurrentId());
+        BaseContext.removeCurrentId();
+        return studentMapper.selectOne(wrapper);
     }
 }

@@ -6,4 +6,6 @@ import com.yizhischool.pojo.Entity.Student;
 
 public interface IStudentService extends IService<Student> {
     Student login(StudentLoginDTO studentLoginDTO);
+
+    Student profile();
 }
