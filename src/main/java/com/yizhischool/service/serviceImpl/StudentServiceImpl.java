@@ -10,11 +10,14 @@ import com.yizhischool.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements IStudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+
 
     @Override
     public Student login(StudentLoginDTO studentLoginDTO) {
@@ -31,4 +34,5 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         BaseContext.removeCurrentId();
         return studentMapper.selectOne(wrapper);
     }
+
 }

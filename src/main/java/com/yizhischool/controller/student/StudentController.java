@@ -1,11 +1,15 @@
 package com.yizhischool.controller.student;
 
 
+import com.yizhischool.common.context.BaseContext;
 import com.yizhischool.common.properties.JwtProperties;
 import com.yizhischool.pojo.DTO.StudentLoginDTO;
+import com.yizhischool.pojo.Entity.Score;
 import com.yizhischool.pojo.Entity.Student;
 import com.yizhischool.pojo.VO.StudentLoginVO;
 import com.yizhischool.pojo.VO.StudentProfileVO;
+import com.yizhischool.pojo.VO.StudentSchoolVO;
+import com.yizhischool.service.IStudentScoreService;
 import com.yizhischool.service.IStudentService;
 import com.yizhischool.utils.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.yizhischool.common.result.Result;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,6 +32,9 @@ public class StudentController {
 
     @Autowired
     private IStudentService studentService;
+
+    @Autowired
+    private IStudentScoreService studentScoreService;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -65,6 +74,14 @@ public class StudentController {
                         .phone(student.getPhone())
                         .build()
                 );
+    }
+
+
+    @GetMapping("/school")
+    @Operation(summary = "学籍成绩")
+    public Result<ArrayList<StudentSchoolVO>> school(@RequestParam Integer semester) {
+        log.info("查询的学号是:{} 查询的学年是:{}", BaseContext.getCurrentId(), semester);
+        return Result.success(studentScoreService.school(semester));
     }
 
     @GetMapping("/hello")

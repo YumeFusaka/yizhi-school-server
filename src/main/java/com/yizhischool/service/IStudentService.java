@@ -8,4 +8,5 @@ public interface IStudentService extends IService<Student> {
     Student login(StudentLoginDTO studentLoginDTO);
 
     Student profile();
+
 }
