@@ -38,7 +38,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             log.info("Token不存在");
 
             //创建响应结果对象
-            Result responseResult = Result.noToken("NOT_LOGIN");
+            Result<String> responseResult = Result.noToken("NOT_LOGIN");
             //把Result对象转换为JSON格式字符串 (fastjson是阿里巴巴提供的用于实现对象和json的转换工具类)
             String json = JSONObject.toJSONString(responseResult);
             //设置状态码
@@ -54,12 +54,17 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         //5.解析token，如果解析失败，返回错误结果（未登录）
         try {
             Claims claims = JwtUtils.parseToken(jwtProperties.getSecretKey(), token);
-            BaseContext.setCurrentId((String) claims.get("studentId"));
+            String studentId = (String)claims.get("studentId");
+            if(studentId != null){
+                BaseContext.setCurrentId(studentId);
+            }else{
+                BaseContext.setCurrentId((String)claims.get("teacherId"));
+            }
         } catch (Exception e) {
             log.info("令牌解析失败!");
 
             //创建响应结果对象
-            Result responseResult = Result.error("NOT_LOGIN");
+            Result<String> responseResult = Result.error("NOT_LOGIN");
             //把Result对象转换为JSON格式字符串 (fastjson是阿里巴巴提供的用于实现对象和json的转换工具类)
             String json = JSONObject.toJSONString(responseResult);
             //设置响应头
