@@ -6,10 +6,12 @@ import com.yizhischool.common.context.BaseContext;
 import com.yizhischool.mapper.StudentMapper;
 import com.yizhischool.pojo.DTO.StudentLoginDTO;
 import com.yizhischool.pojo.Entity.Student;
+import com.yizhischool.pojo.VO.ClassLogVO;
 import com.yizhischool.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

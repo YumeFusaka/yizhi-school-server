@@ -27,5 +27,4 @@ public class GlobalCorsConfig {
         //3. 返回新的CorsFilter
         return new CorsFilter(corsConfigurationSource);
     }
-
 }

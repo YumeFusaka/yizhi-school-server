@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackages = {"com.yumefusaka.yizhischool.controller"},annotations = {RestController.class})
+@RestControllerAdvice(basePackages = {"com.yizhischool.controller"},annotations = {RestController.class})
 public class GlobalExceptionHandler {
 
     //处理异常
